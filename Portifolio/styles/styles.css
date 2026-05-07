@@ -1,0 +1,64 @@
+body{
+    background-color: rgb(23, 23, 27);
+    color: rgb(218, 218, 218);
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.329);
+
+    width: 90%;
+    height: 400px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Remove estilos padrão da lista */
+.nav-links {
+  list-style: none;
+  display: flex;       /* Coloca os <li> lado a lado */
+  gap: 20px;           /* Cria espaço entre os links */
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+    border: white solid 1px;
+    margin: 2px;
+}
+
+/* Configura o container principal */
+.navbar {
+  display: flex;       /* Coloca o Logo e a Lista lado a lado */
+  justify-content: space-between; /* Empurra o logo para a esquerda e links para a direita */
+  align-items: center; /* Alinha verticalmente ao centro */
+  padding: 15px 30px;
+  background-color: #333;
+  color: white;
+}
+
+/* Estilo básico dos links */
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+
+.nav-links a:hover {
+  color: #ffcc00;      /* Efeito de cor ao passar o mouse */
+}
