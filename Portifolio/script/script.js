@@ -19,7 +19,6 @@ Atualmente, estou focado em aprimorar meus conhecimentos em back-end, lógica de
     formatura: new Date(2026, 11, 31)
 };
 
-
 // ATALHO PARA PEGAR ELEMENTOS
 const elemento = (id) => document.getElementById(id);
 
