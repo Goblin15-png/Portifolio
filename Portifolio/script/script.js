@@ -1,111 +1,82 @@
-const NOME = "Bernardo Diniz";
+const dados = {
+    nome: "Bernardo Diniz",
 
-let tituloProfissional = "Desenvolvedor e Analista de Sistemas";
+    titulo: "Desenvolvedor e Analista de Sistemas",
 
-let minhaBio = "Sou estudante de Desenvolvimento de Sistemas e apaixonado por tecnologia, programação e resolução de problemas. Tenho experiência com Python, SQLite e criação de projetos focados em aprendizado prático, sempre buscando evoluir minhas habilidades em desenvolvimento de software. Gosto de transformar ideias em soluções funcionais, aprender novas tecnologias e enfrentar desafios que me façam crescer como desenvolvedor. Atualmente, estou focado em aprimorar meus conhecimentos em back-end, lógica de programação e desenvolvimento de aplicações.";
+    bio: `Sou estudante de Desenvolvimento de Sistemas e apaixonado por tecnologia, programação e resolução de problemas.
 
-let anoFormatura = 2026;
-let mesFormatura = 12;
-let diaFormatura = 31;
+Tenho experiência com Python, SQLite e criação de projetos focados em aprendizado prático, sempre buscando evoluir minhas habilidades em desenvolvimento de software.
 
-let anoIngresso = 2025;
-let mesIngresso = 1;
-let diaIngresso = 1;
+Atualmente, estou focado em aprimorar meus conhecimentos em back-end, lógica de programação e desenvolvimento de aplicações.`,
 
-// DATA ATUAL
-let dataAtual = new Date();
-let mesAtual = dataAtual.getMonth() + 1;
-let anoAtual = dataAtual.getFullYear();
-let diaAtual = dataAtual.getDate();
+    curso: {
+        nome: "Desenvolvimento de Sistemas",
+        semestre: 3
+    },
 
-let indefinido;
-let nulo = null;
+    ingresso: 2025,
 
-let curso = {
-    nome: "Desenvolvedor de sistemas",
-    semestre: 3,
-    disciplinaAtual: "Aluno"
+    formatura: new Date(2026, 11, 31)
 };
 
-// TESTES
-console.log(typeof nulo);
-console.log(typeof indefinido);
-console.log(typeof anoFormatura);
-console.log(typeof minhaBio);
-console.log(typeof tituloProfissional);
-console.log(typeof NOME);
-console.log(typeof curso);
 
-// MOSTRAR DADOS NA TELA
-document.getElementById("meuNome").innerText = NOME;
+// ATALHO PARA PEGAR ELEMENTOS
+const elemento = (id) => document.getElementById(id);
 
-document.getElementById("tituloProfissional").innerText =
-tituloProfissional;
 
-document.getElementById("minhaBio").innerText = minhaBio;
+// CARREGAR DADOS
+function carregarDados() {
+    elemento("meuNome").textContent = dados.nome;
+    elemento("tituloProfissional").textContent = dados.titulo;
+    elemento("minhaBio").textContent = dados.bio;
 
-document.getElementById("anoIngresso").innerText =
-"Ano de ingresso: " + anoIngresso;
+    elemento("anoIngresso").textContent =
+        `Ano de ingresso: ${dados.ingresso}`;
 
-document.getElementById("anoFormatura").innerText =
-"Ano de formatura: " + anoFormatura;
+    elemento("anoFormatura").textContent =
+        `Ano de formatura: ${dados.formatura.getFullYear()}`;
 
-// CÁLCULO DO TEMPO RESTANTE
-let diasRestantes = diaFormatura - diaAtual;
-let mesesRestantes = mesFormatura - mesAtual;
-let anosRestantes = anoFormatura - anoAtual;
-
-// TEXTO DOS ANOS
-let textoAno = "";
-
-if (anosRestantes === 1) {
-    textoAno = "ano";
-} else if (anosRestantes <= 0) {
-    textoAno = "";
-} else {
-    textoAno = "anos";
+    elemento("curso").textContent =
+        `Curso: ${dados.curso.nome}`;
 }
 
 
-// TEXTO DOS MESES
-let textoMes = "";
+// CALCULAR TEMPO RESTANTE
+function calcularTempoRestante() {
+    const hoje = new Date();
+    const diferenca = dados.formatura - hoje;
 
-if (mesesRestantes <= 0) {
-    textoMes = "";
-} else if (mesesRestantes === 1) {
-    textoMes = "mês";
-} else {
-    textoMes = "meses";
+    if (diferenca <= 0) {
+        elemento("tempoRestanteParaFormatura").textContent =
+            "Curso concluído!";
+        return;
+    }
+
+    const diasTotais = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+
+    const anos = Math.floor(diasTotais / 365);
+    const meses = Math.floor((diasTotais % 365) / 30);
+    const dias = (diasTotais % 365) % 30;
+
+    const partes = [];
+
+    if (anos > 0) {
+        partes.push(`${anos} ${anos === 1 ? "ano" : "anos"}`);
+    }
+
+    if (meses > 0) {
+        partes.push(`${meses} ${meses === 1 ? "mês" : "meses"}`);
+    }
+
+    if (dias > 0) {
+        partes.push(`${dias} ${dias === 1 ? "dia" : "dias"}`);
+    }
+
+    elemento("tempoRestanteParaFormatura").textContent =
+        `Tempo restante para formatura: ${partes.join(", ")}`;
 }
 
-// TEXTO DOS DIAS
-let textoDia = "";
 
-if (diasRestantes <= 0) {
-    textoDia = "";
-} else if (diasRestantes === 1) {
-    textoDia = "dia";
-} else {
-    textoDia = "dias";
-}
-
-// MOSTRAR TEMPO RESTANTE
-if (
-    anosRestantes <= 0 &&
-    mesesRestantes <= 0 &&
-    diasRestantes <= 0
-) {
-
-    document.getElementById("tempoRestanteParaFormatura").innerText =
-    "Curso Concluído!";
-
-} else {
-
-    let parts = [];
-    if (anosRestantes > 0) parts.push(`${anosRestantes} ${textoAno}`);
-    if (mesesRestantes > 0) parts.push(`${mesesRestantes} ${textoMes}`);
-    if (diasRestantes > 0) parts.push(`${diasRestantes} ${textoDia}`);
-
-    document.getElementById("tempoRestanteParaFormatura").innerText =
-    `Tempo restante para formatura: ${parts.join(", ")}`;
-}
+// INICIALIZAÇÃO
+carregarDados();
+calcularTempoRestante();
