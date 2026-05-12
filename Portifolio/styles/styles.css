@@ -47,8 +47,7 @@ body {
     margin: 20px auto;
     background-color: #1a1a1a;
     border-radius: 25px;
-    border: 2px;
-    border-color: #ffffff;
+    border: 1px solid white;
     overflow: hidden;
 }
 
