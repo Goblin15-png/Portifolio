@@ -143,14 +143,6 @@ body {
     font-weight: bold;
 }
 
-.apresentacao {
-    flex: 3;
-    background: #0d0d0d;
-    padding: 50px;
-    border-radius: 18px;
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
 /* SIDEBAR */
 
 .informacoes {
@@ -179,6 +171,66 @@ body {
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
+/* PROJETOS */
+
+.projetos {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.projeto-lista {
+    /* 3. Mude de display: flex para display: grid */
+    display: grid; 
+    /* O repeat(auto-fit...) só funciona com display: grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 20px;
+    width: 100%; /* Ocupa toda a largura do pai */
+}
+
+.projeto:hover {
+    background-color: #050505;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.projeto {
+    background: #0d0d0d;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.projeto h3 {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.projeto p {
+    margin-bottom: 8px;
+    color: #d4d4d8;
+    line-height: 1.6;
+}
+
+/* CONTATO */
+
+.contato {
+    background: #0d0d0d;
+    padding: 35px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-top: 30px;
+}
+
+.contato h3 {
+    margin-bottom: 20px;
+    color: white;
+}
+
+.contato p {
+    margin-bottom: 10px;
+    color: #d4d4d8;
+}
+
 /* RESPONSIVO */
 
 @media (max-width: 900px) {
@@ -203,4 +255,21 @@ body {
     .informacoes {
         width: 100%;
     }
+}
+
+.projetos {
+    /* 1. Remova ou aumente o max-width para permitir que a lista cresça */
+    max-width: 1200px; 
+    width: 90%; /* Garante respiro em telas pequenas */
+    margin: 60px auto;
+    
+    /* 2. Mantenha flex column para o título/topo ficar acima da lista */
+    display: flex;
+    flex-direction: column; 
+    
+    gap: 20px;
+    padding: 30px;
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
 }

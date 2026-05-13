@@ -8,15 +8,15 @@
 </head>
 <body>
 
-    <header>
+    <header id="home">
         <nav class="navbar">
 
             <ul class="nav-links esquerda">
-                <li><a href="../pages/home.html">Home</a></li>
-                <li><a href="#">Sobre</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#sobre">Sobre</a></li>
             </ul>
 
-            <div class="logo", id="logo", onclick="iniciar">⚙ Dev Bernardo</div>
+            <div class="logo", id="logo">⚙ Dev Bernardo</div>
 
             <ul class="nav-links direita">
                 <li><a href="../pages/projetos.html">Projetos</a></li>
@@ -28,7 +28,7 @@
 
     <main class="container">
 
-        <section class="apresentacao">
+        <section class="apresentacao" id="sobre">
             <h1 id="meuNome"></h1>
             <h2 id="tituloProfissional"></h2>
 
@@ -37,8 +37,11 @@
             <p id="tempoRestanteParaFormatura" class="tempo"></p>
         </section>
 
-        <section>
-            
+        <section class="contato" id="contato">
+            <h3>Contato</h3>
+            <p>Email: bernardo@example.com</p>
+            <p>LinkedIn: linkedin.com/in/bernardo</p>
+            <p>GitHub: github.com/bernardo</p>
         </section>
 
         <aside class="informacoes">
