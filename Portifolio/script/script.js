@@ -76,71 +76,109 @@ function calcularTempoRestante() {
         `Tempo restante para formatura: ${partes.join(", ")}`;
 }
 
-let projetos = [
-    {Nome : "Aplicação de Estacionamento",
-     Tecnologias : ["Python","TKinter","fpdf"],
-     Conhecimentos : "VsCode, GitHub, pip, PyInstaller",
-     Descricao : "Aplicação desktop para gerenciamento de estacionamento, com registro/ cadastro de clientes e carros."
-    },
-    {Nome : "Aplicação de Biblioteca",
-     Tecnologias : ["Python","TKinter","fpdf"],
-     Conhecimentos : "VsCode, GitHub, pip, PyInstaller",
-     Descricao : "Aplicação desktop para gerenciamento de livros, com registro/cadastro de clientes e livros, alem de administração de status dos livros."
-    },
-    {Nome : "Sistema de Controle de Estoque",
-     Tecnologias : ["Python","SQLite","Tkinter"],
-     Conhecimentos : "Banco de dados, CRUD, Interface gráfica",
-     Descricao : "Sistema para controlar estoque de produtos, com funcionalidades de adicionar, editar e remover itens."
-    },
-    {Nome : "Calculadora Científica",
-     Tecnologias : ["JavaScript","HTML","CSS"],
-     Conhecimentos : "DOM manipulation, Math functions",
-     Descricao : "Calculadora web com operações básicas e avançadas, como seno, cosseno e logaritmos."
-    }
-]
+let projetos = [];
 
-function carregarProjetos(filtro = "") {
-    const container = document.getElementById("Projetos");
-    if (container) {
-        container.innerHTML = "";
-        const projetosFiltrados = projetos.filter(projeto =>
-            projeto.Nome.toLowerCase().includes(filtro.toLowerCase()) ||
-            projeto.Tecnologias.some(tech => tech.toLowerCase().includes(filtro.toLowerCase())) ||
-            projeto.Descricao.toLowerCase().includes(filtro.toLowerCase())
-        );
-        projetosFiltrados.forEach(projeto => {
-            const div = document.createElement("div");
-            div.className = "projeto";
-            div.innerHTML = `
-                <h3>${projeto.Nome}</h3>
-                <p><strong>Tecnologias:</strong> ${projeto.Tecnologias.join(", ")}</p>
-                <p><strong>Conhecimentos:</strong> ${projeto.Conhecimentos}</p>
-                <p>${projeto.Descricao}</p>
-            `;
-            container.appendChild(div);
+// CRIAR PROJETOS
+function criarProjetos() {
+    adicionarProjeto(
+        "Aplicação de Estacionamento",
+        "Aplicação desktop para gerenciamento de estacionamento, com registro/ cadastro de clientes e carros.",
+        ["Python", "TKinter", "fpdf"],
+        "VsCode, GitHub, pip, PyInstaller"
+    );
+
+    adicionarProjeto(
+        "Aplicação de Biblioteca",
+        "Aplicação desktop para gerenciamento de livros, com registro/cadastro de clientes e livros, alem de administração de status dos livros.",
+        ["Python", "TKinter", "fpdf"],
+        "VsCode, GitHub, pip, PyInstaller"
+    );
+
+    adicionarProjeto(
+        "Sistema de Controle de Estoque",
+        "Sistema para controlar estoque de produtos, com funcionalidades de adicionar, editar e remover itens.",
+        ["Python", "SQLite", "Tkinter"],
+        "Banco de dados, CRUD, Interface gráfica"
+    );
+
+    adicionarProjeto(
+        "Calculadora Científica",
+        "Calculadora web com operações básicas e avançadas, como seno, cosseno e logaritmos.",
+        ["JavaScript", "HTML", "CSS"],
+        "DOM manipulation, Math functions"
+    );
+}
+
+// RENDERIZAR PROJETOS NA PÁGINA
+function renderizarProjetos(lista = projetos) {
+    const container = elemento("Projetos");
+    if (!container) return;
+    
+    container.innerHTML = "";
+    
+    if (lista.length === 0) {
+        container.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; color: #999;'>Nenhum projeto encontrado</p>";
+        return;
+    }
+    
+    lista.forEach(projeto => {
+        const divProjeto = document.createElement("div");
+        divProjeto.className = "projeto";
+        
+        const tecnologiasHTML = projeto.Tecnologias
+            .map(tech => `<span class="tag-tech">${tech}</span>`)
+            .join("");
+        
+        divProjeto.innerHTML = `
+            <h3>${projeto.Nome}</h3>
+            <p><strong>Descrição:</strong> ${projeto.Descricao}</p>
+            <p><strong>Tecnologias:</strong></p>
+            <div class="tecnologias">${tecnologiasHTML}</div>
+            <p><strong>Conhecimentos:</strong> ${projeto.Conhecimentos}</p>
+        `;
+        
+        container.appendChild(divProjeto);
+    });
+}
+
+// ADICIONAR NOVO PROJETO
+function adicionarProjeto(nome, descricao, tecnologias, conhecimentos) {
+    projetos.push({
+        Nome: nome,
+        Descricao: descricao,
+        Tecnologias: Array.isArray(tecnologias) ? tecnologias : tecnologias.split(",").map(t => t.trim()),
+        Conhecimentos: conhecimentos
+    });
+    renderizarProjetos();
+}
+
+// FILTRAR/PESQUISAR PROJETOS
+function pesquisarProjetos(termo) {
+    const termoLower = termo.toLowerCase();
+    const projetosFiltrados = projetos.filter(projeto => 
+        projeto.Nome.toLowerCase().includes(termoLower) ||
+        projeto.Descricao.toLowerCase().includes(termoLower) ||
+        projeto.Tecnologias.some(tech => tech.toLowerCase().includes(termoLower))
+    );
+    renderizarProjetos(projetosFiltrados);
+}
+
+// INICIALIZAR PÁGINA DE PROJETOS
+function inicializarProjetos() {
+    renderizarProjetos();
+    
+    const inputPesquisa = document.querySelector(".pesquisa input");
+    if (inputPesquisa) {
+        inputPesquisa.addEventListener("input", (e) => {
+            pesquisarProjetos(e.target.value);
         });
     }
 }
 
-function pesquisarProjetos() {
-    const input = document.querySelector(".pesquisa input");
-    const filtro = input.value;
-    carregarProjetos(filtro);
-}
-
-// INICIALIZAÇÃO
-carregarDados();
-calcularTempoRestante();
-carregarProjetos();
-
-// Adicionar evento de busca
+// CHAMAR AO CARREGAR A PÁGINA
 document.addEventListener("DOMContentLoaded", () => {
-    const botaoPesquisa = document.querySelector(".pesquisa button");
-    const inputPesquisa = document.querySelector(".pesquisa input");
-    if (botaoPesquisa) {
-        botaoPesquisa.addEventListener("click", pesquisarProjetos);
-    }
-    if (inputPesquisa) {
-        inputPesquisa.addEventListener("input", pesquisarProjetos);
-    }
+    carregarDados();
+    calcularTempoRestante();
+    criarProjetos();
+    if (elemento("Projetos")) inicializarProjetos();
 });
