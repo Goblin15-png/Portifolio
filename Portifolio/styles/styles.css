@@ -380,14 +380,15 @@ body {
     font-weight: 600;
 }
 
-.contato p {
+.contato a {
     margin-bottom: 12px;
     color: var(--text-light);
     padding: 8px 0;
+    text-decoration: none;
     transition: var(--transition);
 }
 
-.contato p:hover {
+.contato a:hover {
     color: #667eea;
     padding-left: 8px;
 }
@@ -460,4 +461,58 @@ body {
     .card h2 {
         font-size: 1.1rem;
     }
+}
+
+/* RODAPÉ */
+.rodape {
+    width: 100%;
+    padding: 40px 20px 60px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.rodape {
+    width: 100%;
+    padding: 40px 20px 60px;
+    background: rgba(255, 255, 255, 0.03);
+    display: flex;
+    justify-content: center;
+}
+
+.rodape .contato {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.rodape .contato h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rodape .contato-items {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.rodape .contato-items a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-light);
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.rodape .contato-items a:hover {
+    color: #667eea;
+    border-color: rgba(102, 126, 234, 0.4);
+    transform: translateY(-2px);
 }
